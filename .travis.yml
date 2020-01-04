@@ -1,22 +1,27 @@
-language: python 
-python: 
-- "3.6"
-env: 
+language: python
+python:
+- '3.6'
+env:
 - DJANGO=2.0 DB=postgres
-before_install: 
+before_install:
 - cd decide
-install: 
+install:
 - pip install -r ../requirements.txt
-script: 
+script:
 - python manage.py test
 services:
-  - postgresql
+- postgresql
 addons:
-  postgresql: "9.6"
+  postgresql: '9.6'
 global:
-  - PGPORT=5432
+- PGPORT=5432
 before_script:
- - cp local_settings.travis.py local_settings.py
- - psql -c "create user decide with password 'decide'" 
- - psql -c "create database decide owner decide"
- - python manage.py migrate
+- cp local_settings.travis.py local_settings.py
+- psql -c "create user decide with password 'decide'"
+- psql -c "create database decide owner decide"
+- python manage.py migrate
+app:
+- appexamen
+deploy:
+  api_key:
+    secure: E5L58S7jjutvz4R90+LvpEJiwiVbWk7wPM3uAkFogxqW4QwpEHg/jvh1VQFhgmZi4x6eCaJZlRaYDDJGu0esqvfIcoNv7dKyW3szPt5hW8n3ygUM1AFmoDkj/rOxfVYoR1wRwGv2lqp6fw0gnGjsjiBCSldKReoNfOLjhSanLT9nK58xJRBmWaKqi0uVuLIqHA+2xQZjekryyd2kza96sGvifEXkMfgZhY4D1eXzvuYOlqHJG/m/D38RTXzmbYxzY/nxVSBoNKGWa1sn1Kuvrkc6ksQY0XX2M4oQpFQortrXnScxpV/EUymirSkqEpWGUxSZY7/4LagxmcJbp0riq16uCBsDRlm7ZyTQA/c4B3OQm73JhKRtUG/2MmV0u9jLaIZpJYd0ITAXGvdNuY68noAkmakVAir2mLNHFS0irA5vvU4aiL2HGNpJDYBgn4b/shaeu7knNyV7o/vcDJRZQENzY6vKa6CsKmcYWfOjwG9RW5l0NN6gzPeRzg2Z/6O3lNLoa/93/6EGWbWM84JqooFhR5R8gSmGqEzUH2XFtxIvo2w3cwdnxH7PdIurMGGSjNFbrdEkbosmH71KOL/uP4A5XKetdx9RPTOUuXZ9yfvfyRed++IyFhrhcy6deYE3+1ftvD0vp0QN5bBUokR5zRgN6Lz/mcm0t6j9lh+yBLM=
